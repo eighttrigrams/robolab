@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<robot name="gripper">
+  <link name="upper">
+    <collision>
+      <geometry>
+        <box size="0.2 1.5 0.2"/>
+      </geometry>
+      <origin xyz="0 -0.75 0"/>
+    </collision>
+    <inertial>
+        <mass value="5."/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+    <link name="cone">
+      <collision>
+        <geometry>
+          <mesh filename="cone.obj" scale="0.3 0.3 0.3"/>
+        </geometry>
+        <origin xyz="0 0 -0.2" rpy="1.57 0 1.57"/>
+      </collision>
+    </link>
+
+
+
+  <link name="higher_1">
+    <collision>
+        <geometry>
+            <box size="0.2 0.6 0.2"/>
+        </geometry>
+        <origin xyz="0 0.3 0"/>
+    </collision>
+  </link>
+
+  <link name="higher_2">
+      <collision>
+          <geometry>
+              <box size="0.2 0.6 0.2"/>
+          </geometry>
+          <origin xyz="0 0.3 0"/>
+      </collision>
+    </link>
+
+  <link name="lower_1">
+    <collision>
+        <geometry>
+            <box size="0.2 0.6 0.2"/>
+        </geometry>
+        <origin xyz="0 -0.3 0"/>
+    </collision>
+  </link>
+
+  <link name="lower_2">
+      <collision>
+          <geometry>
+              <box size="0.2 0.6 0.2"/>
+          </geometry>
+          <origin xyz="0 -0.3 0"/>
+      </collision>
+    </link>
+
+  <link name="lowest_1">
+      <collision>
+          <geometry>
+              <cylinder radius="0.1" length="0.8"/>
+          </geometry>
+          <origin xyz="0 -0.4 0" rpy="1.57 0.0 0.0"/>
+      </collision>
+  </link>
+
+  <link name="lowest_2">
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.8"/>
+            </geometry>
+            <origin xyz="0 -0.4 0" rpy="1.57 0.0 0.0"/>
+        </collision>
+  </link>
+
+  <link name="highest_1">
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.8"/>
+            </geometry>
+            <origin xyz="0 0.4 0" rpy="1.57 0.0 0.0"/>
+        </collision>
+    </link>
+
+    <link name="highest_2">
+          <collision>
+              <geometry>
+                  <cylinder radius="0.1" length="0.8"/>
+              </geometry>
+              <origin xyz="0 0.4 0" rpy="1.57 0.0 0.0"/>
+          </collision>
+    </link>
+
+  <joint name="upper_to_lower_1" type="revolute">
+    <parent link="upper"/>
+    <child link="lower_1"/>
+    <origin xyz="0.2 -1.5 0"/>
+    <limit lower="0" upper=".785"></limit>
+  </joint>
+
+  <joint name="upper_to_lower_2" type="revolute">
+      <parent link="upper"/>
+      <child link="lower_2"/>
+      <origin xyz="-0.2 -1.5 0"/>
+      <limit lower="0" upper=".785"></limit>
+  </joint>
+
+  <joint name="upper_to_higher_1" type="revolute">
+    <parent link="upper"/>
+    <child link="higher_1"/>
+    <origin xyz="0.2 0 0"/>
+    <limit lower="-0.785" upper="0"></limit>
+  </joint>
+
+  <joint name="upper_to_higher_2" type="revolute">
+      <parent link="upper"/>
+      <child link="higher_2"/>
+      <origin xyz="-0.2 0 0"/>
+      <limit lower="-0.785" upper="0"></limit>
+    </joint>
+
+  <joint name="lower_1_to_lowest_1" type="revolute">
+    <parent link="lower_1"/>
+    <child link="lowest_1"/>
+    <origin xyz="0 -0.6 0"/>
+    <limit lower="0" upper="1.7"></limit>
+  </joint>
+
+  <joint name="lower_2_to_lowest_2" type="revolute">
+      <parent link="lower_2"/>
+      <child link="lowest_2"/>
+      <origin xyz="0 -0.6 0"/>
+      <limit lower="0" upper="1.7"></limit>
+    </joint>
+
+    <joint name="higher_1_to_highest_1" type="revolute">
+        <parent link="higher_1"/>
+        <child link="highest_1"/>
+        <origin xyz="0 0.6 0"/>
+        <limit lower="-1.7" upper="0"></limit>
+      </joint>
+
+      <joint name="higher_2_to_highest_2" type="revolute">
+          <parent link="higher_2"/>
+          <child link="highest_2"/>
+          <origin xyz="0 0.6 0"/>
+          <limit lower="-1.7" upper="0"></limit>
+        </joint>
+
+
+    <joint name="extra" type="fixed">
+        <parent link="upper"/>
+        <child link="cone"/>
+        <origin xyz="0 -1.2 0"/>
+    </joint>
+
+</robot>

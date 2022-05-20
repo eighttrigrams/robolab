@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<robot name="gripper">
+
+
+    <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+      <material name="orange">
+        <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+      </material>
+      <material name="blue">
+      <color rgba="0.5 0.7 1.0 1.0"/>
+    </material>
+
+  <link name="trunk">
+    <collision>
+        <geometry>
+            <mesh filename="hunchback.obj" scale="0.1 0.15 0.1"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <visual>
+            <geometry>
+                <mesh filename="hunchback.obj" scale="0.1 0.15 0.1"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <inertial>
+      <mass value="20."/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+
+    <link name="shoulder_left">
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.2"/>
+            </geometry>
+            <origin xyz="0 -0.1 0" rpy="1.57 0 0"/>
+        </collision>
+        <inertial>
+                      <mass value="2."/>
+                      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+                  </inertial>
+      </link>
+
+  <link name="shoulder">
+    <collision>
+        <geometry>
+            <cylinder radius="0.1" length="0.2"/>
+        </geometry>
+        <origin xyz="0 -0.1 0" rpy="1.57 0 0"/>
+    </collision>
+   <inertial>
+                         <mass value="2."/>
+                         <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+                     </inertial>
+  </link>
+
+  <link name="arm">
+      <collision>
+          <geometry>
+              <box size="0.05 0.6 0.05"/>
+          </geometry>
+          <origin xyz="0.05 0 -0.3" rpy="1.57 0 0"/>
+      </collision>
+      <visual>
+                <geometry>
+                    <box size="0.05 0.6 0.05"/>
+                </geometry>
+                <origin xyz="0.05 0 -0.3" rpy="1.57 0 0"/>
+                <material name="orange"/>
+            </visual>
+     <inertial>
+           <mass value="2."/>
+           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+       </inertial>
+    </link>
+
+    <link name="arm_left">
+      <collision>
+
+          <geometry>
+              <box size="0.05 0.6 0.05"/>
+          </geometry>
+          <origin xyz="-0.05 0 -0.3" rpy="1.57 0 0"/>
+      </collision>
+      <visual>
+
+                <geometry>
+                    <box size="0.05 0.6 0.05"/>
+                </geometry>
+                <origin xyz="-0.05 0 -0.3" rpy="1.57 0 0"/>
+                <material name="orange"/>
+            </visual>
+     <inertial>
+                           <mass value="2."/>
+                           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+                       </inertial>
+    </link>
+
+
+  <joint name="trunk_to_shoulder" type="revolute">
+    <parent link="trunk"/>
+    <child link="shoulder"/>
+    <origin xyz="0.2 0.45 0.15" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.3425" upper="0"></limit>
+  </joint>
+
+  <joint name="shoulder_to_arm" type="revolute">
+      <parent link="shoulder"/>
+      <child link="arm"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <limit lower="-0.3425" upper="0"></limit>
+    </joint>
+
+ <joint name="trunk_to_left_shoulder" type="revolute">
+        <parent link="trunk"/>
+        <child link="shoulder_left"/>
+        <origin xyz="-0.2 0.45 0.15" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit lower="0" upper=".3425"></limit>
+      </joint>
+
+  <joint name="left_shoulder_to_left_arm" type="revolute">
+        <parent link="shoulder_left"/>
+        <child link="arm_left"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <limit lower="-0.3425" upper="0"></limit>
+      </joint>
+</robot>
